@@ -9,7 +9,7 @@ import french from "../assets/french.jpg";
 
 const cuisines = [
   { name: "INDIAN", image: indian },
-  { name: "CHINESE", image: japanese },
+  { name: "JAPANESE", image: japanese },
   { name: "KOREAN", image: korean },
   { name: "THAI", image: thai },
   { name: "AMERICAN", image: american },
