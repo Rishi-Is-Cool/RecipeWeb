@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import Header from "./components/header";
-import CuisineCards from "./components/CuisineCards";
-import Footer from "./components/footer"; 
-
+import SignUp from "./pages/SignUp";
+import Home from "./pages/Home"; 
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Header/>
-      <CuisineCards/>
-      <Footer />
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<SignUp />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

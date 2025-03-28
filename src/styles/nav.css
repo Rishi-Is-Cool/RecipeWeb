@@ -1,0 +1,48 @@
+nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 22px;
+    padding: 1.5rem 4rem;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #ffcc00;
+    transform: translateY(-2px);
+}
+
+/* ✅ Optional: Add an underline effect */
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 0;
+    height: 3px;
+    background-color: #ffcc00;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.logo img {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    height: 110px;
+}

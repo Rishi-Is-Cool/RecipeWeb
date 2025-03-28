@@ -1,5 +1,5 @@
 import React from 'react'
-import "../styles/home.css";
+import "../styles/Main.css";
 import indian from "../assets/indian.jpeg";
 import japanese from "../assets/japanese.jpg";
 import korean from "../assets/korean.jpg";
@@ -19,13 +19,13 @@ const cuisines = [
 const CuisineCards = () => {
   return (
     <div>
-        <div class="heading">
+        <div className="heading">
             <h1>
-                <span class="blockA">
+                <span className="blockA">
                     simple recipes made for
                 </span>
 
-                <span class="blockB">
+                <span className="blockB">
                     real, actual, everyday life
                 </span>
             </h1>

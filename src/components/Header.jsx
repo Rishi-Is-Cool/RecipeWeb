@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/home.css";
+import "../styles/Nav.css";
 import Typewriter from "./Typewriter";
 import logo from "../assets/l2.png";
 
@@ -12,10 +12,10 @@ const Header = () => {
                 <img src={logo} alt="logo"/>
             </div>
             <nav>
-                <a href="#Home">Home</a>
-                <a href="#ChatBot">ChatBot</a>
-                <a href="#About">About</a>
-                <a href="#Contact">Contact</a>
+                <a href="/">Home</a>
+                <a href="/Login">Login</a>
+                <a href="/About">About</a>
+                <a href="/Contact">Contact</a>
             </nav>
             <div className="typewriter-container">
                 <Typewriter />
