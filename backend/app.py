@@ -2,6 +2,7 @@ import psycopg2
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 CORS(app)
@@ -78,6 +79,45 @@ def register():
         conn.close()
 
     return jsonify({"message": "User registered successfully", "user_id": user_id}), 201
+
+# API Route for User Login
+@app.route('/SignIn', methods=['POST'])
+def sign_in():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        # Fetch user details along with hashed password
+        cur.execute("SELECT first_name, last_name, password FROM users WHERE email=%s", (email,))
+        user = cur.fetchone()
+
+        if user:
+            db_password = user[2]  # Ensure password is in the correct column
+            print("Retrieved Password from DB:", db_password)  # Debugging line
+
+            if not db_password:
+                return jsonify({"error": "Password not found in the database"}), 500
+
+            if bcrypt.check_password_hash(db_password, password):
+                return jsonify({"message": "Login successful", "user": {"first_name": user[0], "last_name": user[1]}})
+            else:
+                return jsonify({"error": "Invalid credentials"}), 401
+        else:
+            return jsonify({"error": "User not found"}), 404
+
+    except psycopg2.Error as e:
+        return jsonify({"error": "Database error", "details": str(e)}), 500
+
+    finally:
+        cur.close()
+        conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
