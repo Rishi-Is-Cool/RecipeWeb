@@ -20,12 +20,8 @@ const SignIn = () => {
             if (response.data.message === "Login successful") {
                 setMessage("Login successful!");
                 localStorage.setItem("user", JSON.stringify(response.data.user));
-                
-                // Debugging: Log before navigation
-                // console.log("Before navigation");
                 setTimeout(() => {
                     navigate('/');  // Redirect to home
-                    // console.log("After navigation - this might not show if navigation works");
                 }, 1500);    
             } else {
                 setMessage(response.data.error || "Invalid credentials");
