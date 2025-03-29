@@ -2,7 +2,7 @@ nav {
     display: flex;
     justify-content: flex-end;
     gap: 22px;
-    padding: 1.5rem 4rem;
+    padding: 1.5rem 5rem;
     position: absolute;
     width: 100%;
     z-index: 2;
@@ -13,18 +13,55 @@ nav a {
     text-decoration: none;
     font-size: 27px;
     font-weight: bold;
-    padding: 10px 15px;
+    padding: 10px 14px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     transition: transform 0.3s ease-in-out;
 }
 
-nav a:hover {
+.user-icon {
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    font-size: 18px;
+    color: white; /* Ensure text is visible on dark backgrounds */
+    font-family: 'Arvo', serif;
+}
+
+.logout-btn {
+    position: relative; /* Ensure underline works */
+}
+
+.login-btn,
+.logout-btn {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 27px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    font-family: 'Arvo', serif;
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+    background: transparent;
+}
+
+nav a:hover,
+.logout-btn:hover {
     color: #ffcc00;
     transform: translateY(-2px);
 }
 
-/* ✅ Optional: Add an underline effect */
-nav a::after {
+/* ✅ Underline effect for nav links and logout button */
+nav a::after,
+.logout-btn::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -35,9 +72,17 @@ nav a::after {
     transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
 }
 
-nav a:hover::after {
+nav a:hover::after,
+.logout-btn:hover::after {
     width: 100%;
     left: 0;
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+    color: #ffcc00;
+    transform: translateY(-2px);
+    text-shadow: 0px 0px 8px rgba(255, 204, 0, 0.6);
 }
 
 .logo img {

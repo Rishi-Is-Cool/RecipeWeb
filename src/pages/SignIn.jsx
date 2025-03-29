@@ -20,9 +20,11 @@ const SignIn = () => {
             if (response.data.message === "Login successful") {
                 setMessage("Login successful!");
                 localStorage.setItem("user", JSON.stringify(response.data.user));
+                alert("Sign In Successful! Redirecting to Home page...");
+                
                 setTimeout(() => {
                     navigate('/');  // Redirect to home
-                }, 1500);    
+                }, 1000);    
             } else {
                 setMessage(response.data.error || "Invalid credentials");
             }
@@ -48,7 +50,8 @@ const SignIn = () => {
                         <button type="submit">Sign In</button>
                     </div>
                 </form>
-                {message && <p className="alert">{message}</p>}
+                {message && <p style={{ color: message.includes("failed") ? "red" : "green" }}>{message}</p>}
+                {/* {message && <p className="alert">{message}</p>} */}
             </div>
         </div>
     );

@@ -67,7 +67,7 @@ def register():
             "INSERT INTO users (first_name, last_name, phone_no, email, password) VALUES (%s, %s, %s, %s, %s) RETURNING id",
             (first_name, last_name, phone_no, email, hashed_password)
         )
-        user_id = cur.fetchone()[0]
+        user_id = cur.fetchone()[0] 
         conn.commit()
 
     except psycopg2.Error as e:

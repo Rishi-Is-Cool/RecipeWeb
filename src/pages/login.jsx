@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from 'axios';// API call
 import "../styles/Login.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -24,6 +24,7 @@ const login = () => {
     try {
       const response = await axios.post("http://localhost:5000/SignUp", formData);
       setMessage(response.data.message);
+      alert("Sign Up Successful! Redirecting to Sign In page...");
 
       setTimeout(() => {
         navigate('/SignIn');
@@ -91,7 +92,7 @@ const login = () => {
         </form>
 
         {/* Display error/success message */}
-        {message && <p>{message}</p>}
+        {message && <p style={{ color: message.includes("failed") ? "red" : "green" }}>{message}</p>}
       </div>
     </div>
   );
