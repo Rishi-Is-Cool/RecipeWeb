@@ -34,6 +34,17 @@ def create_table():
             password TEXT NOT NULL
         )
     """)
+    cur.execute(""" 
+        CREATE TABLE IF NOT EXISTS newsletter (
+            id SERIAL PRIMARY KEY,
+            full_name VARCHAR(50) NOT NULL,
+            email VARCHAR(120) UNIQUE NOT NULL,
+            subject VARCHAR(50) NOT NULL,
+            message TEXT NOT NULL,
+            subscribed BOOLEAN DEFAULT TRUE
+        )
+    """)
+
     conn.commit()
     cur.close()
     conn.close()
@@ -43,6 +54,44 @@ create_table()
 
 # Initialize bcrypt
 bcrypt = Bcrypt(app)
+
+# API Route for User Newsletter
+@app.route("/subscribe", methods=["POST"])
+def subscribe():
+    data = request.json
+    full_name = data.get("full_name")
+    email = data.get("email")
+    subject = data.get("subject", "General")  # Default: General
+    message = data.get("message", "")  # Default: Empty
+    subscribed = data.get("subscribed", True)
+
+    if not full_name or not email:
+        return jsonify({"error": "Full name and email are required"}), 400
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        # Insert subscriber data into newsletter table
+        cur.execute("""
+            INSERT INTO newsletter (full_name, email, subject, message, subscribed) 
+            VALUES (%s, %s, %s, %s, %s)
+            ON CONFLICT (email) DO UPDATE
+            SET subject = EXCLUDED.subject,
+                message = EXCLUDED.message,
+                subscribed = EXCLUDED.subscribed
+        """, (full_name, email, subject, message, subscribed))
+        conn.commit()
+
+    except psycopg2.Error as e:
+        conn.rollback()
+        return jsonify({"error": "Failed to subscribe", "details": str(e)}), 500
+
+    finally:
+        cur.close()
+        conn.close()
+
+    return jsonify({"message": "Successfully subscribed to the newsletter!"}), 201
 
 # API Route for User Registration
 @app.route("/SignUp", methods=["POST"])
