@@ -21,6 +21,7 @@ const SignIn = () => {
                 setMessage("Login successful!");
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 alert("Sign In Successful! Redirecting to Home page...");
+                console.log("User stored in localStorage:", JSON.parse(localStorage.getItem("user")));
                 
                 setTimeout(() => {
                     navigate('/');  // Redirect to home

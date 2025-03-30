@@ -95,18 +95,18 @@ def sign_in():
 
     try:
         # Fetch user details along with hashed password
-        cur.execute("SELECT first_name, last_name, password FROM users WHERE email=%s", (email,))
+        cur.execute("SELECT first_name, last_name, phone_no, email, password FROM users WHERE email=%s", (email,))
         user = cur.fetchone()
 
         if user:
-            db_password = user[2]  # Ensure password is in the correct column
+            db_password = user[4]  # Ensure password is in the correct column
             print("Retrieved Password from DB:", db_password)  # Debugging line
 
             if not db_password:
                 return jsonify({"error": "Password not found in the database"}), 500
 
             if bcrypt.check_password_hash(db_password, password):
-                return jsonify({"message": "Login successful", "user": {"first_name": user[0], "last_name": user[1]}})
+                return jsonify({"message": "Login successful", "user": {"first_name": user[0], "last_name": user[1], "phone_no": user[2], "email": user[3]}})
             else:
                 return jsonify({"error": "Invalid credentials"}), 401
         else:
