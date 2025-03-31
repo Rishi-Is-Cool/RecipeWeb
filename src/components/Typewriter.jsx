@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 
 const Typewriter = () => {
   const texts = [
-    "Search for Indian Cuisine...",
-    "Search for Japanese Cuisine...",
-    "Search for Korean Cuisine...",
-    "Search for Thai Cuisine...",
-    "Search for American Cuisine...",
-    "Search for French Cuisine..."
+    "Search for Maharastrian Cuisine...",
+    "Search for Gujrathi Cuisine...",
+    "Search for Bengali Cuisine...",
+    "Search for North Indian Cuisine...",
+    "Search for North Eastern Indian Cuisine...",
+    "Search for South Indian Cuisine..."
   ];
 
   const [text, setText] = useState("");
