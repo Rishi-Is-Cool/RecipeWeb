@@ -4,38 +4,40 @@ import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard"; // Component for individual recipes
 
+// Import cuisine images
 import maharashtrian from "../assets/maharashtrian_cuisine.jpg";
-import gujrathi from "../assets/gujrathi.jpg";
+import gujarati from "../assets/gujrathi.jpg";
 import bengali from "../assets/bengali.jpg";
-import north-indian from "../assets/north-Indian.jpg";
-import north-eastern-indian from "../assets/north-eastern-indian.jpg";
-import south-indian from "../assets/south-indian.jpg";
+import northIndian from "../assets/north-Indian.jpg";
+import northEasternIndian from "../assets/north-eastern-indian.jpg";
+import southIndian from "../assets/south-indian.jpg";
 
+// Cuisine images mapping
 const cuisineImages = {
-    maharashtrian: maharastrian,
-    gujarati: gujrathi,
+    maharashtrian: maharashtrian,
+    gujarati: gujarati,
     bengali: bengali,
-    "north-indian": north-indian,
-    "north-eastern-indian": north-easter-indian,
-    "south-indian": south-indian,
+    "north-indian": northIndian,
+    "north-eastern-indian": northEasternIndian,
+    "south-indian": southIndian,
 };
 
 const CuisinePage = () => {
-
     const { cuisine } = useParams(); // Get the cuisine name from the URL
     const cuisineName = cuisine.replace("-", " ").toUpperCase(); // Format for display
     const cuisineImage = cuisineImages[cuisine] || cuisineImages["north-indian"]; // Default image
 
+    // Dummy recipe data
     const recipes = [
-        { id: 1, name: "Recipe 1", image: maharashtrain },
-        { id: 2, name: "Recipe 2", image: gujrathi },
+        { id: 1, name: "Recipe 1", image: maharashtrian },
+        { id: 2, name: "Recipe 2", image: gujarati },
         { id: 3, name: "Recipe 3", image: bengali },
-        { id: 4, name: "Recipe 4", image: north-indian },
+        { id: 4, name: "Recipe 4", image: northIndian },
     ];
 
     const [likedRecipes, setLikedRecipes] = useState([]);
     const [savedRecipes, setSavedRecipes] = useState([]);
-    
+
     // Handle Like Recipe
     const toggleLike = (id) => {
         setLikedRecipes((prev) =>
@@ -79,7 +81,6 @@ const CuisinePage = () => {
             </div>
         </div>
     );
+};
 
-}
-
-export default CuisinePage
+export default CuisinePage;
