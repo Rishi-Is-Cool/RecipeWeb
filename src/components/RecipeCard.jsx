@@ -1,17 +1,13 @@
 import React from 'react'
+import "../styles/recipeCard.css";
 
-const RecipeCard = ({ recipe, isLiked, isSaved, onLike, onSave }) => {
+const RecipeCard = ({ image, type, title }) => {
     return (
-        <div className="recipe-card">
-            <img src={recipe.image} alt={recipe.name} className="recipe-image" />
-            <h3>{recipe.name}</h3>
-            <div className="recipe-actions">
-                <button onClick={onLike} className={isLiked ? "liked" : ""}>
-                    ❤️
-                </button>
-                <button onClick={onSave} className={isSaved ? "saved" : ""}>
-                    📥
-                </button>
+        <div className="cards">
+            <img src={image} alt="recipe_image" />
+            <div className="recipe-info">
+                <p className="recipe-type">{type}</p>
+                <p className="recipe-title">{title}</p>
             </div>
         </div>
     );

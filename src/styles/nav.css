@@ -1,3 +1,11 @@
+.navbar-default {
+    background-color: #333; /* Dark shade for non-home pages */
+}
+
+.navbar-home {
+    background-color:transparent; /* Keep the home page navbar as white */
+}
+
 nav {
     display: flex;
     justify-content: flex-end;

@@ -1,86 +1,41 @@
-import React, { useState } from "react";
-import "../styles/cuisinePage.css"; // Style file for all cuisines
+import React from 'react'
+import "../styles/recipeCard.css";
+import RecipeCard from "../components/RecipeCard";
 import NavBar from "../components/NavBar";
-import { useParams } from "react-router-dom";
-import RecipeCard from "../components/RecipeCard"; // Component for individual recipes
+import Footer from "../components/Footer";
 
-// Import cuisine images
-import maharashtrian from "../assets/maharashtrian_cuisine.jpg";
-import gujarati from "../assets/gujrathi.jpg";
-import bengali from "../assets/bengali.jpg";
-import northIndian from "../assets/north-Indian.jpg";
-import northEasternIndian from "../assets/north-eastern-indian.jpg";
-import southIndian from "../assets/south-indian.jpg";
-
-// Cuisine images mapping
-const cuisineImages = {
-    maharashtrian: maharashtrian,
-    gujarati: gujarati,
-    bengali: bengali,
-    "north-indian": northIndian,
-    "north-eastern-indian": northEasternIndian,
-    "south-indian": southIndian,
-};
+const dummyRecipes = [
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2023/02/sabudana-khichdi-1-280x280.jpg", type: "Breakfast", title: "Pancakes" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2010/08/pani-puri-recipe-280x280.jpg", type: "Lunch", title: "Grilled Chicken" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2020/08/modak-recipe-280x280.jpg", type: "Dinner", title: "Pasta" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2012/09/puran-poli-recipe-280x280.jpg", type: "Vegan", title: "Salad Bowl" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2022/09/poha-recipe-1-280x280.jpg", type: "Dessert", title: "Chocolate Cake" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2014/10/chakli-3-280x280.jpg", type: "Indian", title: "Butter Naan" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2021/05/sabudana-vada-recipe-3-280x280.jpg", type: "Italian", title: "Margherita Pizza" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2009/08/vada-pav-recipe-280x280.jpg", type: "Drinks", title: "Mango Shake" },
+    { image: "https://www.vegrecipesofindia.com/wp-content/uploads/2013/03/bajra-roti-280x280.jpg", type: "Snacks", title: "French Fries" },
+];
 
 const CuisinePage = () => {
-    const { cuisine } = useParams(); // Get the cuisine name from the URL
-    const cuisineName = cuisine.replace("-", " ").toUpperCase(); // Format for display
-    const cuisineImage = cuisineImages[cuisine] || cuisineImages["north-indian"]; // Default image
-
-    // Dummy recipe data
-    const recipes = [
-        { id: 1, name: "Recipe 1", image: maharashtrian },
-        { id: 2, name: "Recipe 2", image: gujarati },
-        { id: 3, name: "Recipe 3", image: bengali },
-        { id: 4, name: "Recipe 4", image: northIndian },
-    ];
-
-    const [likedRecipes, setLikedRecipes] = useState([]);
-    const [savedRecipes, setSavedRecipes] = useState([]);
-
-    // Handle Like Recipe
-    const toggleLike = (id) => {
-        setLikedRecipes((prev) =>
-            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-        );
-    };
-
-    // Handle Save Recipe (Watch Later)
-    const toggleSave = (id) => {
-        setSavedRecipes((prev) =>
-            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-        );
-    };
-
     return (
-        <div>
-            <NavBar />
-
-            {/* Banner Section */}
-            <div className="cuisine-banner" style={{ backgroundImage: `url(${cuisineImage})` }}>
-                <h1>{cuisineName} Cuisine</h1>
+            <div className="container">
+                <NavBar />
+                <div className="headings">
+                    <h1>Maharashtrian Cuisine</h1>
+                    <h4>Collection of 90 Tasty Vegetarian Maharashtrian Food Recipes</h4>
+                    <hr />
+                    <div className="wrapper">
+                        <div className="card-container">
+                            {dummyRecipes.map((recipe, index) => (
+                                <RecipeCard key={index} image={recipe.image} type={recipe.type} title={recipe.title} />
+                            ))}
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <Footer />
             </div>
-
-            {/* Recipe Count */}
-            <div className="recipe-count">
-                <p>We have 30+ delicious {cuisineName} recipes for you!</p>
-            </div>
-
-            {/* Recipe Section */}
-            <div className="recipes-section">
-                {recipes.map((recipe) => (
-                    <RecipeCard
-                        key={recipe.id}
-                        recipe={recipe}
-                        isLiked={likedRecipes.includes(recipe.id)}
-                        isSaved={savedRecipes.includes(recipe.id)}
-                        onLike={() => toggleLike(recipe.id)}
-                        onSave={() => toggleSave(recipe.id)}
-                    />
-                ))}
-            </div>
-        </div>
     );
 };
 
-export default CuisinePage;
+export default CuisinePage

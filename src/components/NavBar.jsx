@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assets/l2.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const NavBar = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
     const [user, setUser] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -37,13 +38,24 @@ const NavBar = () => {
         setIsOpen(!isOpen);
     };
 
+    const getNavbarClass = () => {
+        if (location.pathname === "/") {
+            return "navbar-home";  // Home page class
+        } else {
+            return "navbar-default";  // Default class for other pages
+        }
+    };
+
     return (
         <div>
             {/* <div className="header-overlay"></div> */}
-            <div className="logo">
+            {/* <div className="logo">
                 <img src={logo} alt="logo" />
-            </div>
-            <nav>
+            </div> */}
+            <nav className={getNavbarClass()}>
+                <div className="logo">
+                    <img src={logo} alt="logo" />
+                </div>
                 <a href="/">Home</a>
                 <a href="/About">About</a>
                 <a href="/Contact">Contact</a>
