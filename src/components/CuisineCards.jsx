@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Main.css";
 
 // Importing correct images
-import maharashtrian from "../assets/maharashtrian_cuisine.jpg";
-import gujarati from "../assets/gujrathi.jpg";
-import bengali from "../assets/bengali.jpg";
+import maharashtrian from "../assets/maharashtra.jpg";
+import gujarati from "../assets/goa.jpg";
+import bengali from "../assets/bengal.jpg";
 import northIndian from "../assets/north-Indian.jpg";
 import northEasternIndian from "../assets/north-eastern-indian.jpg";
 import southIndian from "../assets/south-indian.jpg";
@@ -13,7 +13,7 @@ import southIndian from "../assets/south-indian.jpg";
 // Updated cuisines array with correct image references
 const cuisines = [
     { name: "MAHARASHTRIAN", image: maharashtrian, path: "/maharashtrian" },
-    { name: "GUJARATI", image: gujarati, path: "/gujarati" },
+    { name: "GOAN", image: gujarati, path: "/goan" },
     { name: "BENGALI", image: bengali, path: "/bengali" },
     { name: "NORTH INDIAN", image: northIndian, path: "/north-indian" },
     { name: "NORTH EASTERN INDIAN", image: northEasternIndian, path: "/north-eastern-indian" },
