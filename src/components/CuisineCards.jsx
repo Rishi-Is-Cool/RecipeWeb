@@ -6,9 +6,9 @@ import "../styles/Main.css";
 import maharashtrian from "../assets/maharashtra.jpg";
 import gujarati from "../assets/goa.jpg";
 import bengali from "../assets/bengal.jpg";
-import northIndian from "../assets/north-Indian.jpg";
+import northIndian from "../assets/northIndian.jpg";
 import northEasternIndian from "../assets/north-eastern-indian.jpg";
-import southIndian from "../assets/south-indian.jpg";
+import southIndian from "../assets/southIndian.jpeg";
 
 // Updated cuisines array with correct image references
 const cuisines = [

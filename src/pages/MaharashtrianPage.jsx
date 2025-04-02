@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import "../styles/recipeCard.css";
 import RecipeCard from "../components/RecipeCard";
 import NavBar from "../components/NavBar";
