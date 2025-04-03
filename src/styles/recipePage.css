@@ -1,10 +1,18 @@
 /* styles/recipePage.css */
 /* All classes now prefixed with 'rp-' to prevent clashes */
 
+hr {
+  border: 0;
+  border-top: 1px solid #ededed;
+  width: 95%; 
+  margin: 5rem auto 10px;
+}
+
 .rp-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Arvo', serif;
 }
 
 .rp-content {
@@ -18,11 +26,12 @@
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 0.5rem;
+  margin-top:10rem;
 }
 
 .rp-course {
   font-size: 1.2rem;
-  color: #666;
+  color: #9b5783;
   margin-bottom: 2rem;
 }
 
@@ -33,12 +42,30 @@
   margin-bottom: 3rem;
 }
 
-.rp-image {
+.rp-image-container {
+  display: flex;
+  justify-content: center; /* Only centers the image */
+  margin: 2rem 0;
   width: 100%;
-  max-width: 600px;
+}
+
+.rp-title,
+.rp-course,
+.rp-times,
+.rp-details {
+  text-align: left; /* Explicitly set to left */
+  justify-content: flex-start; /* For flex containers */
+}
+
+.rp-image {
+  max-width: 100%;
   height: auto;
+  max-height: 500px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
 }
 
 .rp-times {
@@ -98,11 +125,18 @@
   border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.rp-ingredient-item.completed {
+  text-decoration: line-through;
+  color: #9b5783;
 }
 
 .rp-ingredient-item::before {
   content: "•";
-  color: #ff6b6b;
+  color: #9b5783;
   font-weight: bold;
   display: inline-block;
   width: 1em;

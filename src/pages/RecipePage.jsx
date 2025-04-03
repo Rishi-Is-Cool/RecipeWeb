@@ -9,6 +9,7 @@ const RecipePage = () => {
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [completedIngredients, setCompletedIngredients] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -16,57 +17,26 @@ const RecipePage = () => {
         setError(null);
 
         const fetchRecipe = async () => {
-            // First try with the exact name from URL
-            let cleanedName = recipeName;
-            let apiUrl = `http://127.0.0.1:5000/recipe/${encodeURIComponent(cleanedName)}`;
-
             try {
-                // First attempt
-                let response = await fetch(apiUrl);
-
-                // If first attempt fails, try removing "Recipe" suffix
-                if (!response.ok) {
-                    cleanedName = recipeName.replace(/\s*Recipe\s*$/i, '').trim();
-                    apiUrl = `http://127.0.0.1:5000/recipe/${encodeURIComponent(cleanedName)}`;
-                    response = await fetch(apiUrl);
-                }
-
-                // If still failing, try removing the hyphenated part
-                if (!response.ok && cleanedName.includes(' - ')) {
-                    cleanedName = cleanedName.split(' - ')[0].trim();
-                    apiUrl = `http://127.0.0.1:5000/recipe/${encodeURIComponent(cleanedName)}`;
-                    response = await fetch(apiUrl);
-                }
-
-                if (!response.ok) {
-                    throw new Error(`Recipe "${recipeName}" not found. Tried variations: 
-                        ${recipeName}, 
-                        ${recipeName.replace(/\s*Recipe\s*$/i, '').trim()}, 
-                        ${recipeName.split(' - ')[0].trim()}`);
-                }
-
+                const response = await fetch(`http://127.0.0.1:5000/recipe/${encodeURIComponent(recipeName)}`);
+                if (!response.ok) throw new Error("Recipe not found");
                 const data = await response.json();
                 setRecipe(data);
             } catch (error) {
-                console.error("Fetch error:", {
-                    originalName: recipeName,
-                    attemptedNames: [
-                        recipeName,
-                        recipeName.replace(/\s*Recipe\s*$/i, '').trim(),
-                        recipeName.split(' - ')[0].trim()
-                    ],
-                    error: error.message
-                });
                 setError(error.message);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchRecipe();
     }, [recipeName]);
 
-    // Render loading/error states
+    const toggleIngredient = (index) => {
+        setCompletedIngredients((prev) =>
+            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        );
+    };
+
     if (loading) return <div className="loading">Loading recipe...</div>;
     if (error) return <div className="error">{error}</div>;
 
@@ -77,23 +47,14 @@ const RecipePage = () => {
                 <h1 className="rp-title">{recipe.title}</h1>
                 <p className="rp-course">{recipe.course}</p>
 
-                <div className="rp-header">
-                    <img src={recipe.url} alt={recipe.title} className="rp-image" />
+                <div className="rp-times">
+                    <span>Prep Time: {recipe.prep_time} mins</span>
+                    <span>Cook Time: {recipe.cook_time} mins</span>
+                    <span>Total Time: {recipe.total_time} mins</span>
+                </div>
 
-                    <div className="rp-times">
-                        <div className="rp-time-item">
-                            <span className="rp-time-label">Prep Time:</span>
-                            <span className="rp-time-value">{recipe.prep_time} mins</span>
-                        </div>
-                        <div className="rp-time-item">
-                            <span className="rp-time-label">Cook Time:</span>
-                            <span className="rp-time-value">{recipe.cook_time} mins</span>
-                        </div>
-                        <div className="rp-time-item">
-                            <span className="rp-time-label">Total Time:</span>
-                            <span className="rp-time-value">{recipe.total_time} mins</span>
-                        </div>
-                    </div>
+                <div className="rp-image-container">
+                    <img src={recipe.url} alt={recipe.title} className="rp-image" />
                 </div>
 
                 <div className="rp-details">
@@ -101,7 +62,13 @@ const RecipePage = () => {
                         <h2>Ingredients</h2>
                         <ul className="rp-ingredients-list">
                             {recipe.ingredients.split(',').map((ingredient, index) => (
-                                ingredient.trim() && <li key={index} className="rp-ingredient-item">{ingredient}</li>
+                                <li
+                                    key={index}
+                                    className={`rp-ingredient-item ${completedIngredients.includes(index) ? 'completed' : ''}`}
+                                    onClick={() => toggleIngredient(index)}
+                                >
+                                    {ingredient.trim()}
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -109,13 +76,14 @@ const RecipePage = () => {
                     <div className="rp-instructions-section">
                         <h2>Instructions</h2>
                         <ol className="rp-instructions-list">
-                            {recipe.instructions.split(',').map((instruction, index) => (
-                                instruction.trim() && <li key={index} className="rp-instruction-item">{instruction}</li>
+                            {recipe.instructions.split(/(?<=\.)\s+/).map((instruction, index) => (
+                                <li key={index} className="rp-instruction-item">{instruction.trim()}</li>
                             ))}
                         </ol>
                     </div>
                 </div>
             </div>
+            <hr />
             <Footer />
         </div>
     );
