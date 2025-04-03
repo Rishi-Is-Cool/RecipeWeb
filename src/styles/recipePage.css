@@ -1,0 +1,26 @@
+.recipe-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+  }
+  
+  .recipe-container h1 {
+    color: #333;
+  }
+  
+  .recipe-container img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .recipe-container p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  

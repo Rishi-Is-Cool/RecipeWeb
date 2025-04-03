@@ -93,6 +93,17 @@ hr {
 
 .recipe-details {
     display: flex;
+    gap: 10px; /* Adjust spacing */
+    align-items: center; /* Align text vertically */
+}
+
+.recipe-time svg {
+    color: #ff9800; /* Customize icon color */
+    margin-right: 5px;
+}
+
+.recipe-details {
+    display: flex;
     /* gap: 10px; Adjust spacing */
     align-items: center;
     justify-content: space-between; /* Align text vertically */

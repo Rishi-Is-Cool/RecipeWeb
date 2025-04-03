@@ -201,6 +201,7 @@ def get_recipes():
     finally:
         cur.close()
         conn.close()
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
