@@ -182,15 +182,16 @@ def get_recipes():
     try:
         # Query to fetch recipes based on cuisine
         cur.execute("""
-            SELECT recipe_name, course, total_time FROM recipes WHERE cuisine = %s
+            SELECT recipes.recipe_name, recipes.course, recipes.total_time, recipes.url FROM recipes 
+                    WHERE recipes.cuisine = %s
         """, (cuisine,))
         recipes = cur.fetchall()
 
         # Convert the data into JSON format
         recipe_list = [
-            {"title": row[0], "course": row[1], "total_time": row[2]}
+            {"title": row[0], "course": row[1], "total_time": row[2], "image": row[3]}
             for row in recipes
-        ]
+        ]   
 
         return jsonify(recipe_list), 200
     
