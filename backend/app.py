@@ -168,5 +168,38 @@ def sign_in():
         cur.close()
         conn.close()
 
+# API to fetch recipes by cuisine
+@app.route("/recipes", methods=["GET"])
+def get_recipes():
+    cuisine = request.args.get("cuisine")
+    
+    if not cuisine:
+        return jsonify({"error": "Cuisine parameter is required"}), 400
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        # Query to fetch recipes based on cuisine
+        cur.execute("""
+            SELECT recipe_name, course, total_time FROM recipes WHERE cuisine = %s
+        """, (cuisine,))
+        recipes = cur.fetchall()
+
+        # Convert the data into JSON format
+        recipe_list = [
+            {"title": row[0], "course": row[1], "total_time": row[2]}
+            for row in recipes
+        ]
+
+        return jsonify(recipe_list), 200
+    
+    except psycopg2.Error as e:
+        return jsonify({"error": "Database error", "details": str(e)}), 500
+
+    finally:
+        cur.close()
+        conn.close()
+
 if __name__ == "__main__":
     app.run(debug=True)
