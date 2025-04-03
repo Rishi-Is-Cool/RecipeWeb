@@ -110,6 +110,11 @@ hr {
     padding-bottom: 5px;
 }
 
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .card-container {

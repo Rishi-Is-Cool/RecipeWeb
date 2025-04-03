@@ -1,26 +1,141 @@
-.recipe-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
+/* styles/recipePage.css */
+/* All classes now prefixed with 'rp-' to prevent clashes */
+
+.rp-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.rp-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+}
+
+.rp-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.rp-course {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.rp-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.rp-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rp-times {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.rp-time-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rp-time-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.rp-time-value {
+  color: #333;
+}
+
+.rp-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.rp-ingredients-section, 
+.rp-instructions-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.rp-ingredients-section h2, 
+.rp-instructions-section h2 {
+  font-size: 1.8rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+.rp-ingredients-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.rp-ingredient-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.rp-ingredient-item::before {
+  content: "•";
+  color: #ff6b6b;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-right: 0.5em;
+}
+
+.rp-instructions-list {
+  padding-left: 1.5rem;
+}
+
+.rp-instruction-item {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.rp-loading, 
+.rp-error, 
+.rp-not-found {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.rp-error {
+  color: #d9534f;
+}
+
+@media (max-width: 768px) {
+  .rp-header {
+      flex-direction: column;
   }
   
-  .recipe-container h1 {
-    color: #333;
+  .rp-times {
+      align-self: stretch;
   }
-  
-  .recipe-container img {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .recipe-container p {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  
+}

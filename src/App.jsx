@@ -8,6 +8,7 @@ import BengaliPage from "./pages/BengaliPage"; // import Bengali page
 import NorthIndianPage from "./pages/NorthIndianPage"; // import North Indian page
 import SouthIndianPage from "./pages/SouthIndianPage"; // import South Indian page
 import NorthEasternIndianPage from "./pages/NorthEasternIndianPage"; // import North Eastern page
+import RecipePage from "./pages/RecipePage"; 
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/north-eastern-indian" element={<NorthEasternIndianPage />} />
       <Route path="/login" element={<SignUp />} />
       <Route path="/SignIn" element={<SignIn />} />
+      <Route path="/recipe/:recipeName" element={<RecipePage />} />
     </Routes>
   );
 }
