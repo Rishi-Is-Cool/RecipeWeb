@@ -150,9 +150,8 @@ def sign_in():
         user = cur.fetchone()
 
         if user:
-            db_password = user[4]  # Ensure password is in the correct column
-            print("Retrieved Password from DB:", db_password)  # Debugging line
-
+            db_password = user[4]
+            # print("Retrieved Password from DB:", db_password)
             if not db_password:
                 return jsonify({"error": "Password not found in the database"}), 500
 
