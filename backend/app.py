@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from werkzeug.security import check_password_hash
+from urllib.parse import unquote 
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -148,9 +150,8 @@ def sign_in():
         user = cur.fetchone()
 
         if user:
-            db_password = user[4]  # Ensure password is in the correct column
-            print("Retrieved Password from DB:", db_password)  # Debugging line
-
+            db_password = user[4]
+            # print("Retrieved Password from DB:", db_password)
             if not db_password:
                 return jsonify({"error": "Password not found in the database"}), 500
 
@@ -182,21 +183,72 @@ def get_recipes():
     try:
         # Query to fetch recipes based on cuisine
         cur.execute("""
-            SELECT recipe_name, course, total_time FROM recipes WHERE cuisine = %s
+            SELECT recipes.recipe_name, recipes.course, recipes.total_time, recipes.url FROM recipes 
+                    WHERE recipes.cuisine = %s
         """, (cuisine,))
         recipes = cur.fetchall()
 
         # Convert the data into JSON format
         recipe_list = [
-            {"title": row[0], "course": row[1], "total_time": row[2]}
+            {"title": row[0], "course": row[1], "total_time": row[2], "image": row[3]}
             for row in recipes
-        ]
+        ]   
 
         return jsonify(recipe_list), 200
     
     except psycopg2.Error as e:
         return jsonify({"error": "Database error", "details": str(e)}), 500
 
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route("/recipe/<path:recipe_name>", methods=["GET"])
+def get_recipe_details(recipe_name):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        decoded_name = unquote(recipe_name)
+        
+        # Try exact match first
+        cur.execute("SELECT * FROM recipes WHERE recipe_name = %s", (decoded_name,))
+        recipe = cur.fetchone()
+        
+        # If not found, try more flexible matching
+        if not recipe:
+            # Remove "Recipe" suffix if present
+            search_name = re.sub(r'\s*Recipe\s*$', '', decoded_name, flags=re.IGNORECASE)
+            cur.execute("SELECT * FROM recipes WHERE recipe_name ILIKE %s", (f"%{search_name}%",))
+            recipe = cur.fetchone()
+
+        if not recipe:
+            return jsonify({
+                "error": "Recipe not found",
+                "searched_for": decoded_name,
+                "suggestions": "Try removing 'Recipe' suffix or special characters"
+            }), 404
+
+        # Map columns to proper names
+        recipe_details = {
+            "id": recipe[0],
+            "title": recipe[1],
+            "ingredients": recipe[2],
+            "prep_time": recipe[3],
+            "cook_time": recipe[4],
+            "total_time": recipe[5],
+            "serving": recipe[6],
+            "cuisine": recipe[7],
+            "course": recipe[8],
+            "diet": recipe[9],
+            "instructions": recipe[10],
+            "url": recipe[11]
+        }
+
+        return jsonify(recipe_details), 200
+    
+    except psycopg2.Error as e:
+        return jsonify({"error": "Database error", "details": str(e)}), 500
     finally:
         cur.close()
         conn.close()

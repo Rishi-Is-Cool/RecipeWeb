@@ -1,0 +1,175 @@
+/* styles/recipePage.css */
+/* All classes now prefixed with 'rp-' to prevent clashes */
+
+hr {
+  border: 0;
+  border-top: 1px solid #ededed;
+  width: 95%; 
+  margin: 5rem auto 10px;
+}
+
+.rp-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arvo', serif;
+}
+
+.rp-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+}
+
+.rp-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  margin-top:10rem;
+}
+
+.rp-course {
+  font-size: 1.2rem;
+  color: #9b5783;
+  margin-bottom: 2rem;
+}
+
+.rp-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.rp-image-container {
+  display: flex;
+  justify-content: center; /* Only centers the image */
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.rp-title,
+.rp-course,
+.rp-times,
+.rp-details {
+  text-align: left; /* Explicitly set to left */
+  justify-content: flex-start; /* For flex containers */
+}
+
+.rp-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+}
+
+.rp-times {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.rp-time-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rp-time-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.rp-time-value {
+  color: #333;
+}
+
+.rp-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.rp-ingredients-section, 
+.rp-instructions-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.rp-ingredients-section h2, 
+.rp-instructions-section h2 {
+  font-size: 1.8rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+.rp-ingredients-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.rp-ingredient-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.rp-ingredient-item.completed {
+  text-decoration: line-through;
+  color: #9b5783;
+}
+
+.rp-ingredient-item::before {
+  content: "•";
+  color: #9b5783;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-right: 0.5em;
+}
+
+.rp-instructions-list {
+  padding-left: 1.5rem;
+}
+
+.rp-instruction-item {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.rp-loading, 
+.rp-error, 
+.rp-not-found {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.rp-error {
+  color: #d9534f;
+}
+
+@media (max-width: 768px) {
+  .rp-header {
+      flex-direction: column;
+  }
+  
+  .rp-times {
+      align-self: stretch;
+  }
+}

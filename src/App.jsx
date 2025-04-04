@@ -2,12 +2,13 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./pages/login";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home"; 
-import MaharashtrianPage from "./pages/MaharashtrianPage"; // import Maharashtrian page
-import GoanPage from "./pages/GoanPage"; // import Gujarati page
-import BengaliPage from "./pages/BengaliPage"; // import Bengali page
-import NorthIndianPage from "./pages/NorthIndianPage"; // import North Indian page
-import SouthIndianPage from "./pages/SouthIndianPage"; // import South Indian page
-import NorthEasternIndianPage from "./pages/NorthEasternIndianPage"; // import North Eastern page
+import MaharashtrianPage from "./pages/MaharashtrianPage"; 
+import GoanPage from "./pages/GoanPage"; 
+import BengaliPage from "./pages/BengaliPage"; 
+import NorthIndianPage from "./pages/NorthIndianPage";
+import SouthIndianPage from "./pages/SouthIndianPage";
+import NorthEasternIndianPage from "./pages/NorthEasternIndianPage";
+import RecipePage from "./pages/RecipePage"; 
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/north-eastern-indian" element={<NorthEasternIndianPage />} />
       <Route path="/login" element={<SignUp />} />
       <Route path="/SignIn" element={<SignIn />} />
+      <Route path="/recipe/:recipeName" element={<RecipePage />} />
     </Routes>
   );
 }
