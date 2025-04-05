@@ -253,5 +253,51 @@ def get_recipe_details(recipe_name):
         cur.close()
         conn.close()
 
+@app.route("/search-recipes", methods=["GET"])
+def search_recipes():
+    query = request.args.get("q")
+    
+    if not query:
+        return jsonify({"error": "Search query is required"}), 400
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        # Search in recipe_name, ingredients, and cuisine
+        cur.execute("""
+            SELECT * FROM recipes 
+            WHERE recipe_name ILIKE %s 
+               OR ingredients ILIKE %s 
+               OR cuisine ILIKE %s
+            LIMIT 50
+        """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+        
+        recipes = cur.fetchall()
+        
+        # Convert to dictionary format matching your existing structure
+        recipe_list = [{
+            "id": r[0],
+            "title": r[1],
+            "ingredients": r[2],
+            "prep_time": r[3],
+            "cook_time": r[4],
+            "total_time": r[5],
+            "serving": r[6],
+            "cuisine": r[7],
+            "course": r[8],
+            "diet": r[9],
+            "instructions": r[10],
+            "url": r[11]
+        } for r in recipes]
+
+        return jsonify(recipe_list), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cur.close()
+        conn.close()
+
 if __name__ == "__main__":
     app.run(debug=True)
