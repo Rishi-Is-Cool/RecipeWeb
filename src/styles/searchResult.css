@@ -6,14 +6,17 @@
 }
 
 .search-results-page h2 {
-    margin-bottom: 2rem;
+    margin-top: 7rem;
+    /* margin-bottom: 1rem; */
+    font-size: 3rem;
     text-align: center;
 }
 
 .recipes-container {
+    padding-top: 5rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .loading-message, 
