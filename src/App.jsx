@@ -9,6 +9,7 @@ import NorthIndianPage from "./pages/NorthIndianPage";
 import SouthIndianPage from "./pages/SouthIndianPage";
 import NorthEasternIndianPage from "./pages/NorthEasternIndianPage";
 import RecipePage from "./pages/RecipePage"; 
+import SearchResults from "./pages/SearchResults"; 
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/login" element={<SignUp />} />
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/recipe/:recipeName" element={<RecipePage />} />
+      <Route path="/search" element={<SearchResults />} />
     </Routes>
   );
 }
