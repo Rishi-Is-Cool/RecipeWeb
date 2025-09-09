@@ -111,7 +111,8 @@ Contributions are welcome!
 
 ## 👨‍💻 Author
 **Rishikesh Patil**  
-- GitHub: [Rishi-Is-Cool](https://github.com/Rishi-Is-Cool)  
+- GitHub: [Rishi-Is-Cool](https://github.com/Rishi-Is-Cool)
+- LinkedIn: [Rishikesh Patil](https://www.linkedin.com/in/rishikesh-patil-486194312/)  
 - Email: rishikeshpatil0605@gmail.com  
 
 ### **📜 License**
