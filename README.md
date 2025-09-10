@@ -25,7 +25,7 @@ It demonstrates full-stack development skills by combining a React frontend with
 | Frontend  | React.js                       |
 | Backend   | Flask (Python) + REST API      |
 | Database  | PostgreSQL                     |
-| Styling   | CSS / Tailwind (if used)       |
+| Styling   | CSS        |
 | Version Control | Git & GitHub             |
 
 ---
